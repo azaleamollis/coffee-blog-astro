@@ -1,0 +1,49 @@
+---
+import { getLiveEntry } from 'astro:content';
+
+const { entry, error } = await getLiveEntry('coffee', 'recommendation');
+
+if (error) {
+  console.error('Could not load coffee recommendation:', error);
+}
+
+---
+
+<section class="coffee-recommend">
+  {entry ? (
+    <>
+      <h2 class="coffee-recommend-title">
+        We Recommend: {entry.data.title}
+      </h2>
+      <p class="coffee-recommend-desc">{entry.data.description}</p>
+    </>
+  ) : (
+    <p class="coffee-recommend-desc">
+      Today's recommendation is temporarily unavailable.
+    </p>
+  )}
+</section>
+
+<style>
+  .coffee-recommend {
+    display: block;
+    padding: 1rem 1.5rem;
+    border-radius: 12px;
+    background: var(--cream);
+    color: var(--coffee-dark);
+    font-family: system-ui, sans-serif;
+    font-size: 0.9rem;
+    margin: 0 0 2rem;
+  }
+
+  .coffee-recommend-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+
+  .coffee-recommend-desc {
+    font-size: 0.9375rem;
+    font-style: italic;
+    margin-top: 0.25rem;
+  }
+</style>

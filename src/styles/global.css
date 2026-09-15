@@ -1,0 +1,43 @@
+:root {
+  --coffee-dark: #3b2412;
+  --coffee-medium: #6f4e37;
+  --coffee-light: #b08968;
+  --cream: #f3e9dd;
+  --paper: #fffaf3;
+  --text: #2b1d13;
+  --text-muted: #7a6a5a;
+  --accent: #ec6e07;
+  --text-on-accent: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Georgia', 'Iowan Old Style', serif;
+  background: var(--paper);
+  color: var(--text);
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 0 1.5rem 4rem;
+  line-height: 1.7;
+}
+
+h1,
+h2,
+h3 {
+  font-family: system-ui, sans-serif;
+  line-height: 1.2;
+}
+
+a {
+  color: var(--coffee-medium);
+}
+
+code {
+  background: var(--cream);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  font-size: 0.9em;
+}

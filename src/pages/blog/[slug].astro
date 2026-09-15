@@ -1,0 +1,45 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+import LikeButton from '../../components/LikeButton.jsx';
+import ReadingProgressBar from '../../components/ReadingProgressBar.astro';
+
+// Generates one route for each blog post
+export async function getStaticPaths() {
+
+  // Gets all blog posts so we can generate a route for each one
+  const posts = await getCollection('blog');
+
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+---
+
+<Layout title={post.data.title}>
+  <ReadingProgressBar />
+
+  <a href="/">&larr; Back</a>
+  <h1>{post.data.title}</h1>
+  <p class="meta">
+    {post.data.pubDate.toLocaleDateString('en-US', { dateStyle: 'long' })}
+    {post.data.roast && ` · ${post.data.roast} roast`}
+  </p>
+
+  <LikeButton client:idle />
+  
+  <Content />
+</Layout>
+
+<style>
+  .meta {
+    color: var(--text-muted);
+    font-family: system-ui, sans-serif;
+    font-size: 0.9rem;
+    margin-bottom: 2rem;
+  }
+</style>
