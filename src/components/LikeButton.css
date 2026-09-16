@@ -11,7 +11,7 @@
 }
 
 .like-button:hover {
-  background: var(--coffee-dark);
+  background: var(--accent);
   color: var(--text-on-accent);
 }
 
