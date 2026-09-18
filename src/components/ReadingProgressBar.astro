@@ -4,18 +4,19 @@
 
 <script>
   class ReadingProgressBar extends HTMLElement {
-    // Stores the visible bar and the pending animation-frame ID.
+
+    // Stores the visible bar and the pending animation-frame ID
     bar: HTMLElement | null = null;
     rafId: number | undefined;
     scrollableHeight = 0;
 
-    // Calculates how far the document can be scrolled vertically.
+    // Calculates how far the document can be scrolled vertically
     updateScrollableHeight = () => {
       this.scrollableHeight =
         document.documentElement.scrollHeight - window.innerHeight;
     };
 
-    // Converts scroll position to a 0–1 value and clamps the result.
+    // Converts scroll position to a 0–1 value and clamps the result
     updateProgress = () => {
       const scrollTop = window.scrollY;
 
@@ -25,31 +26,39 @@
           : 0;
 
       if (this.bar) {
-        // Sets the bar's width as a percentage of scroll progress.
+
+        // Sets the bar's width as a percentage of scroll progress
         this.bar.style.width = `${progress * 100}%`;
       }
 
-      // Allows the next scroll event to schedule another update.
+      // Allows the next scroll or resize event to schedule another update
       this.rafId = undefined;
     };
 
-    // Schedules a progress update for the next animation frame.
+    // Schedules a progress update for the next animation frame
     onScroll = () => {
       if (this.rafId === undefined) {
         this.rafId = requestAnimationFrame(this.updateProgress);
       }
     };
 
-    // Updates the cached scrollable height on resize.
+    // Schedules a scrollable-height recalculation and progress update
+    // for the next animation frame
     onResize = () => {
-      requestAnimationFrame(this.updateScrollableHeight);
+      if (this.rafId === undefined) {
+        this.rafId = requestAnimationFrame(() => {
+          this.updateScrollableHeight();
+          this.updateProgress();
+        });
+      }
     };
 
     connectedCallback() {
-      // Finds the visible bar that represents reading progress.
+
+      // Finds the visible bar that represents reading progress
       this.bar = this.querySelector<HTMLElement>('.bar');
 
-      // Waits until the next animation frame before measuring the document.
+      // Waits until the next animation frame before measuring the document
       requestAnimationFrame(() => {
         this.updateScrollableHeight();
         this.updateProgress();
@@ -60,7 +69,8 @@
     }
 
     disconnectedCallback() {
-      // Removes listeners and cancels any pending scroll update.
+
+      // Removes listeners and cancels any pending update
       window.removeEventListener('scroll', this.onScroll);
       window.removeEventListener('resize', this.onResize);
 
@@ -88,6 +98,5 @@
     height: 100%;
     width: 0%;
     background: var(--accent);
-    transition: width 0.1s ease-out;
   }
 </style>
