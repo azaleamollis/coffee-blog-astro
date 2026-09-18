@@ -36,7 +36,7 @@ export const coffeeLoader: LiveLoader<Coffee, { id: string }> = {
 
       const coffees: Coffee[] = await response.json();
 
-      // Excludes test records that were added with higher IDs.
+      // Excludes test records that were added with higher IDs
       const recommendations = coffees.filter(
         (item) => item.id >= 1 && item.id <= 20
       );

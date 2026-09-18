@@ -10,7 +10,7 @@ const blog = defineCollection({
     title: z.string(),
     pubDate: z.date(),
     tags: z.array(z.string()),
-    // Catches a typo like "medum" at build time instead of shipping it
+    // Catches a typo like "medum" instead of allowing invalid data
     roast: z.enum(['light', 'medium', 'dark']).optional(),
     excerpt: z.string(),
   }),
