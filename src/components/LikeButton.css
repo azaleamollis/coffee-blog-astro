@@ -10,16 +10,20 @@
   transition: background 0.15s ease, color 0.15s ease;
 }
 
-.like-button:hover {
-  background: var(--accent);
-  color: var(--text-on-accent);
-}
-
 .like-button.is-liked {
   background: var(--accent);
   color: var(--text-on-accent);
 }
 
-.like-button.is-liked:hover {
-  background: var(--coffee-dark);
+/* Applies hover styles only on devices that support hovering 
+   to avoid touch-device UX issues */
+@media (hover: hover) {
+  .like-button:not(.is-liked):hover {
+    background: var(--accent);
+    color: var(--text-on-accent);
+  }
+
+  .like-button.is-liked:hover {
+    background: var(--coffee-dark);
+  }
 }
