@@ -2,7 +2,7 @@
 
 This repo belongs to the [Astro Tutorial: Make a Static Site with Interactive Components](https://www.debugbear.com/blog/astro-tutorial) article, published on the DebugBear Web Performance Blog 🧸🚀.
 
-The final output is hosted on Cloudflare Workers at [astro.perftuts.workers.dev](astro.perftuts.workers.dev).
+The final output is hosted on Cloudflare Workers at [astro.perftuts.workers.dev](https://astro.perftuts.workers.dev/).
 
 ## Prerequisites
 
